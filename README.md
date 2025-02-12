@@ -1,4 +1,4 @@
-# Projet ISE-VA-ESIGELEC
+# ISE-VA-ESIGELEC
 
 Bienvenue dans le dépôt du département **ISE-VA-ESIGELEC** ! Ce projet regroupe plusieurs modules vus en cours : fusion de données, l'intelligence artificielle, la planification et le suivi de trajectoires, méthodes et outils pour la qualité logicielle.
 
@@ -12,9 +12,9 @@ Bienvenue dans le dépôt du département **ISE-VA-ESIGELEC** ! Ce projet regrou
 - [Contributeurs](#contributeurs)
 - [Licence](#licence)
 
-## Description du Projet
+## Description du Repo
 
-Ce projet est composé de plusieurs sous-projets et modules :
+Ce repository est composé de plusieurs modules :
 
 - **Fusion de Données pour la Localisation** : Mise en place de méthodes avancées de fusion de données pour améliorer la précision et la fiabilité de la localisation du véhicule.
 - **Intelligence Artificielle pour le Véhicule Autonome** : Algorithmes de décision basés sur des réseaux neuronaux et l'apprentissage machine.
