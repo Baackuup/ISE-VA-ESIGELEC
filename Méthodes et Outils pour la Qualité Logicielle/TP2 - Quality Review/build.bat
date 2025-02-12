@@ -1,0 +1,1 @@
+gcc quality.c -o quality.exe
