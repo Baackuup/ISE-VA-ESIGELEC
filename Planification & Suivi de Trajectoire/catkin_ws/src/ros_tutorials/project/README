@@ -1,0 +1,13 @@
+Enregistrer les fichiers dans le dossier catkin_ws directement
+
+roscore
+
+chmod +x ~/catkin_ws/teleport.py
+chmod +x ~/catkin_ws/wall_following.py
+
+
+roslaunch turtlebot3_gazebo turtlebot3_stage_1.launch
+
+rosrun ros_tutorials teleport.py
+
+rosrun ros_tutorials wall_following.py

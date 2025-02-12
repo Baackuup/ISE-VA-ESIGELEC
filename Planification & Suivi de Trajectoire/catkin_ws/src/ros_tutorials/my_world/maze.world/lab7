@@ -1,0 +1,34 @@
+Q1 : 
+export TURTLEBOT3_MODEL=burger
+roslaunch turtlebot3_gazebo turtlebot3_stage_3.launch
+
+export TURTLEBOT3_MODEL=burger
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+
+rosrun ros_tutorials monitor_obstacles.py
+
+show data : rostopic echo /scan
+
+
+Q2 :
+
+roscore
+
+roslaunch turtlebot3_gazebo turtlebot3_house.launch
+
+rosrun gmapping slam_gmapping _particles:=30 _resampleThreshold:=0.5 _occ_thresh:=0.25 _delta:=0.05 _linearUpdate:=0.2 _angularUpdate:=0.1
+
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+
+cd /catkin_ws/src/ros_tutorials/maps
+
+rosrun map_server map_saver House_map
+
+
+Q3 :
+
+roscore
+
+roslaunch turtlebot3_gazebo turtlebot3_house.launch
+
+

@@ -1,0 +1,15 @@
+<launch>
+    <!-- Lancer le nœud Turtlesim -->
+    <node pkg="turtlesim" type="turtlesim_node" name="turtlesim_node" output="screen" />
+
+    <!-- Définir les paramètres pour la position de turtle1 -->
+    <arg name="turtle1_x" value="2.0" />
+    <arg name="turtle1_y" value="2.0" />
+    <arg name="turtle1_theta" value="0.0" />
+
+ 
+
+    <!-- Utiliser le service /spawn pour turtle1 -->
+    <node pkg="rosservice" type="rosservice" name="spawn_turtle1" args="call /spawn $(arg turtle1_x) $(arg turtle1_y) $(arg turtle1_theta) turtle1" />
+
+</launch>

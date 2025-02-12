@@ -1,0 +1,19 @@
+Q1 :
+
+rosrun turtlesim turtlesim_node
+
+rosrun ros_tutorials go_to_goal.py
+
+
+Q2 :
+
+roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
+
+rosrun ros_tutorials open_loop.py
+
+
+Q3 :
+
+rosservice call /gazebo/reset_world "{}"
+
+rosrun ros_tutorials q3.py
