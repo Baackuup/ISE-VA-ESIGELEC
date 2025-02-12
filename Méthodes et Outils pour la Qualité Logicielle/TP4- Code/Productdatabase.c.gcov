@@ -1,0 +1,134 @@
+        -:    0:Source:Productdatabase.c
+        -:    0:Programs:5
+        -:    1:/*
+        -:    2: *    MISRA C:2012 Cash Register project
+        -:    3: * ========================================
+        -:    4: * File Path     : Productdatabase.c
+        -:    5: * Author        : M.W.Richardson
+        -:    6: * Date          : 26/09/13
+        -:    7: * Copyright     : (c) 2013 Liverpool Data Research Associates
+        -:    8: */
+        -:    9:
+        -:   10:#include "Misrac_types.h"
+        -:   11:#include "Countedproduct.h"
+        -:   12:#include "Productdatabase.h"
+        -:   13:
+        -:   14:#define NULL_POINTER ((void *)0)
+        -:   15:
+        -:   16:static struct Product ProductList[MAX_PRODUCTS] = { 
+        -:   17:  { "Coconuts", 12340U, 180U, TEN_PERCENT_OFF }, 
+        -:   18:  { "Lychees", 12346U, 250U, NO_OFFER }, 
+        -:   19:  { "Kiwis", 12347U, 50U, THREE_FOR_ONE_EURO }, 
+        -:   20:  { "Pomegranates", 12348U, 100U, NO_OFFER }, 
+        -:   21:  { "Pears", 12349U, 199U, BUY_ONE_GET_ONE_FREE }, 
+        -:   22:  { "Watermelons", 12350U, 350U, NO_OFFER } 
+        -:   23:};
+        -:   24:
+        -:   25:static struct CountedProduct CountedProductList[MAX_PRODUCTS] = { 
+        -:   26:  { &ProductList[0], 0U }, { &ProductList[1], 0U }, { &ProductList[2], 0U }, 
+        -:   27:  { &ProductList[3], 0U }, { &ProductList[4], 0U }, { &ProductList[5], 0U }
+        -:   28:};
+        -:   29:
+        -:   30:/*
+        -:   31: * Get the product given the barcode
+        -:   32: * If no product exists, then return null
+        -:   33: */
+function Productdatabase_getProduct called 64 returned 100% blocks executed 100%
+       64:   34:const struct Product* Productdatabase_getProduct(const LDRA_uint32_t bCode)
+        -:   35:{
+       64:   36:  LDRA_uint32_t pIter = 0U;
+       64:   37:  const struct Product* theProduct = NULL_POINTER;
+        -:   38:
+      427:   39:  while (pIter < MAX_PRODUCTS)
+branch  0 taken 299
+branch  1 taken 64 (fallthrough)
+        -:   40:  {
+      299:   41:    if (ProductList[pIter].barcode == bCode)
+branch  0 taken 40 (fallthrough)
+branch  1 taken 259
+        -:   42:    {
+       40:   43:      theProduct = &ProductList[pIter];
+       40:   44:      pIter = MAX_PRODUCTS; /* found it so exit loop */
+        -:   45:    }
+        -:   46:    else
+        -:   47:    {
+      259:   48:      pIter++;
+        -:   49:    }
+        -:   50:  }
+       64:   51:  return theProduct;
+        -:   52:}
+        -:   53:
+        -:   54:/*
+        -:   55: * Get the counted product given a product
+        -:   56: * If no counted product exists, then return null
+        -:   57: */
+function Productdatabase_getCountedProduct called 0 returned 0% blocks executed 0%
+    #####:   58:struct CountedProduct* Productdatabase_getCountedProduct(
+        -:   59:    const struct Product* bProduct)
+        -:   60:{
+        -:   61:  LDRA_uint32_t cpIter;
+    #####:   62:  struct CountedProduct* theCountedProduct = NULL_POINTER;
+        -:   63:
+    #####:   64:  if (bProduct != NULL_POINTER)
+branch  0 never executed
+branch  1 never executed
+        -:   65:  {
+    #####:   66:    cpIter = 0U;
+    #####:   67:    while (cpIter < MAX_PRODUCTS)
+branch  0 never executed
+branch  1 never executed
+        -:   68:    {
+    #####:   69:      if (CountedProductList[cpIter].itsProduct->barcode == bProduct->barcode)
+branch  0 never executed
+branch  1 never executed
+        -:   70:      {
+    #####:   71:        theCountedProduct = &CountedProductList[cpIter];
+    #####:   72:        cpIter = MAX_PRODUCTS; /* found it so exit loop */
+        -:   73:      }
+        -:   74:      else
+        -:   75:      {
+    #####:   76:        cpIter++;
+        -:   77:      }
+        -:   78:    }
+        -:   79:  }
+    #####:   80:  return theCountedProduct;
+        -:   81:}
+        -:   82:
+        -:   83:/*
+        -:   84: * Get the counted product given an index
+        -:   85: * If index is out of range, then return null
+        -:   86: */
+function Productdatabase_getSpecificCountedProduct called 0 returned 0% blocks executed 0%
+    #####:   87:struct CountedProduct* Productdatabase_getSpecificCountedProduct(
+        -:   88:    const LDRA_uint32_t anIndex)
+        -:   89:{
+        -:   90:  struct CountedProduct* theCP;
+    #####:   91:  if (anIndex < MAX_PRODUCTS)
+branch  0 never executed
+branch  1 never executed
+        -:   92:  {
+    #####:   93:    theCP = &CountedProductList[anIndex];
+        -:   94:  }
+        -:   95:  else
+        -:   96:  {
+    #####:   97:    theCP = NULL_POINTER;
+        -:   98:  }
+    #####:   99:  return theCP;
+        -:  100:}
+        -:  101:
+        -:  102:/*
+        -:  103: * Initalise count of all counted products to zero
+        -:  104: */
+function Productdatabase_resetCountedProducts called 0 returned 0% blocks executed 0%
+    #####:  105:void Productdatabase_resetCountedProducts(void)
+        -:  106:{
+        -:  107:  LDRA_uint32_t iCP;
+        -:  108:
+    #####:  109:  for (iCP = 0U; iCP < MAX_PRODUCTS; iCP++)
+branch  0 never executed
+branch  1 never executed
+        -:  110:  {
+    #####:  111:    CountedProductList[iCP].count = 0U;
+        -:  112:  }
+    #####:  113:}
+        -:  114:

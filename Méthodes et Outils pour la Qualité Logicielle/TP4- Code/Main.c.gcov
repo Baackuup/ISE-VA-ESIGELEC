@@ -1,0 +1,42 @@
+        -:    0:Source:Main.c
+        -:    0:Programs:5
+        -:    1:/*
+        -:    2: *    MISRA C:2012 Cash Register project
+        -:    3: * ========================================
+        -:    4: * File Path     : Main.c
+        -:    5: * Author        : M.W.Richardson
+        -:    6: * Date          : 16/05/13
+        -:    7: * Copyright     : (c) 2013 Liverpool Data Research Associates
+        -:    8: */
+        -:    9:#include <stdio.h>
+        -:   10:
+        -:   11:#include "Misrac_types.h"
+        -:   12:#include "Userinterface.h"
+        -:   13:
+        -:   14:/* 
+        -:   15: * Simple main that loops 
+        -:   16: * until the character 'q' is pressed
+        -:   17: * Then it exits
+        -:   18: */
+function main called 3 returned 67% blocks executed 100%
+        3:   19:LDRA_int32_t main(void) 
+        -:   20:{
+        3:   21:  LDRA_char_t theChar = '0';
+        -:   22:
+        3:   23:  printf("LDRA MISRA C:2012 Cash Register\n");
+call    0 returned 3
+        3:   24:  Userinterface_help();
+call    0 returned 3
+        -:   25:
+        -:   26:  /* Parse characters received from the keyboard */
+       74:   27:  while (theChar != 'q')
+branch  0 taken 69
+branch  1 taken 2 (fallthrough)
+        -:   28:  {
+       69:   29:    theChar = (LDRA_char_t) getchar();
+call    0 returned 69
+       69:   30:    Userinterface_parse(theChar);
+call    0 returned 68
+        -:   31:  }
+        2:   32:  return 1;
+        -:   33:}

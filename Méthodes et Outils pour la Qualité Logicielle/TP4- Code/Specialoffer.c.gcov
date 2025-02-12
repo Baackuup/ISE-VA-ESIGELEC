@@ -1,0 +1,50 @@
+        -:    0:Source:Specialoffer.c
+        -:    0:Programs:5
+        -:    1:/*
+        -:    2: *    MISRA C:2012 Cash Register project
+        -:    3: * ========================================
+        -:    4: * File Path     : Specialoffer.c
+        -:    5: * Author        : M.W.Richardson
+        -:    6: * Date          : 16/05/13
+        -:    7: * Copyright     : (c) 2013 Liverpool Data Research Associates
+        -:    8: */
+        -:    9:
+        -:   10:#include <string.h>
+        -:   11:#include "Misrac_types.h"
+        -:   12:#include "Specialoffer.h"
+        -:   13:
+        -:   14:/*
+        -:   15: * Get the price which depends on which special offer, if any, is used
+        -:   16: */
+function Specialoffer_getPrice called 0 returned 0% blocks executed 0%
+    #####:   17:LDRA_uint32_t Specialoffer_getPrice(const LDRA_uint32_t aQuantity,
+        -:   18:    const LDRA_uint32_t aUnitPrice, const tSpecialoffer anOffer, LDRA_char_pt aProduct)
+        -:   19:{
+        -:   20:  LDRA_uint32_t price;
+    #####:   21:  switch (anOffer)
+branch  0 never executed
+branch  1 never executed
+branch  2 never executed
+branch  3 never executed
+        -:   22:  {
+        -:   23:    case BUY_ONE_GET_ONE_FREE:
+    #####:   24:	  if(!strcmp(aProduct, "Coconuts")){
+branch  0 never executed
+branch  1 never executed
+    #####:   25:        price = aUnitPrice * (aQuantity >> 1U);
+        -:   26:	  }
+    #####:   27:      break;
+        -:   28:    case TEN_PERCENT_OFF:
+    #####:   29:      price = (aUnitPrice * aQuantity * 9U) / 10U;
+    #####:   30:      break;
+        -:   31:    case THREE_FOR_ONE_EURO:
+    #####:   32:      price = ((aQuantity / 3U) * 100U) + ((aQuantity % 3U) * aUnitPrice);
+    #####:   33:      break;
+        -:   34:      /* no offer */
+        -:   35:    default:
+    #####:   36:      price = aUnitPrice * aQuantity;
+    #####:   37:      break;
+        -:   38:  }
+    #####:   39:  return price;
+        -:   40:}
+        -:   41:
