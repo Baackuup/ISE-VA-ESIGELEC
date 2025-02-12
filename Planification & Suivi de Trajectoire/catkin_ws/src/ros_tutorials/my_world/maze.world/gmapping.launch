@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Lancer Gmapping -->
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+        <!-- Paramètres ajustables -->
+        <param name="particles" value="30"/>  <!-- Nombre de particules -->
+        <param name="resampleThreshold" value="0.5"/>  <!-- Seuil pour le resampling -->
+        <param name="occ_thresh" value="0.25"/>  <!-- Seuil pour marquer une cellule occupée -->
+        <param name="delta" value="0.05"/>  <!-- Résolution de la carte -->
+        <param name="linearUpdate" value="0.2"/>  <!-- Mise à jour par déplacement linéaire -->
+        <param name="angularUpdate" value="0.1"/>  <!-- Mise à jour par rotation -->
+    </node>
+</launch>
+
