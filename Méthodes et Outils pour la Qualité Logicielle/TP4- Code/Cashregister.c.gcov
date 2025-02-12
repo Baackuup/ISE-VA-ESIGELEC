@@ -1,0 +1,386 @@
+        -:    0:Source:Cashregister.c
+        -:    0:Programs:5
+        -:    1:/*
+        -:    2: *    MISRA C:2012 Cash Register project
+        -:    3: * ========================================
+        -:    4: * File Path      : Cashregister.c
+        -:    5: * Author         : M.W.Richardson
+        -:    6: * Date           : 16/05/13
+        -:    7: * Copyright      : (c) 2013 Liverpool Data Research Associates
+        -:    8: */
+        -:    9:
+        -:   10:#include <stdio.h>
+        -:   11:
+        -:   12:#include "Misrac_types.h"
+        -:   13:#include "Cashregister.h"
+        -:   14:#include "Countedproduct.h"
+        -:   15:#include "Productdatabase.h"
+        -:   16:#include "Userinterface.h"
+        -:   17:
+        -:   18:#define MAX_PRODUCTS_IN_BASKET 10U
+        -:   19:#define MAX_STRING             64U
+        -:   20:
+        -:   21:#define NULL_POINTER ((void *)0)
+        -:   22:
+        -:   23:typedef enum
+        -:   24:{
+        -:   25:  state_Idle, state_Active
+        -:   26:} tCashRegisterState;
+        -:   27:
+        -:   28:static tCashRegisterState state = state_Idle;
+        -:   29:static const struct Product* ShoppingBasket[MAX_PRODUCTS_IN_BASKET] = { 0 };
+        -:   30:static LDRA_uint32_t theBarcode = 0U;
+        -:   31:static LDRA_uint32_t scannedProducts = 0U;
+        -:   32:
+        -:   33:/* Forward declarations */
+        -:   34:/* ==================== */
+        -:   35:
+        -:   36:static void addProduct(const struct Product * aProduct);
+        -:   37:static void countProducts(void);
+        -:   38:static void endSession(void);
+        -:   39:static void generateTicket(void);
+        -:   40:static void identifyProduct(const LDRA_uint32_t aBarcode);
+        -:   41:static void removeLastProduct(void);
+        -:   42:static void startSession(void);
+        -:   43:
+        -:   44:/* Private functions */
+        -:   45:/* ================= */
+        -:   46:
+        -:   47:/*
+        -:   48: * Add product to the list of scanned products
+        -:   49: * Unless there are too many products in which case
+        -:   50: * Just ignore the product
+        -:   51: */
+function addProduct called 40 returned 100% blocks executed 100%
+       40:   52:static void addProduct(const struct Product * aProduct)
+        -:   53:{
+        -:   54:  LDRA_char_t message[MAX_STRING];
+        -:   55:
+       40:   56:  if (scannedProducts < MAX_PRODUCTS_IN_BASKET)
+branch  0 taken 37 (fallthrough)
+branch  1 taken 3
+        -:   57:  {
+       37:   58:    if (aProduct != NULL_POINTER)
+branch  0 taken 37 (fallthrough)
+branch  1 taken 0
+        -:   59:    {
+       37:   60:      ShoppingBasket[scannedProducts] = aProduct;
+       37:   61:      scannedProducts++;
+       37:   62:      (void) sprintf(message, "Adding %s", aProduct->name);
+       37:   63:      Userinterface_show(&message[0]);
+call    0 returned 37
+        -:   64:    }
+        -:   65:  }
+        -:   66:  else
+        -:   67:  {
+        3:   68:    Userinterface_show("Basket is full");
+call    0 returned 3
+        -:   69:  }
+       40:   70:}
+        -:   71:
+        -:   72:/*
+        -:   73: * Count how many there are of each product
+        -:   74: */
+function countProducts called 0 returned 0% blocks executed 0%
+    #####:   75:static void countProducts(void)
+        -:   76:{
+        -:   77:  struct CountedProduct * currentCountedProduct;
+    #####:   78:  LDRA_uint32_t iProduct = 0U;
+        -:   79:  const struct Product * currentProduct;
+        -:   80:
+    #####:   81:  Productdatabase_resetCountedProducts();
+call    0 never executed
+        -:   82:  /* iterate over each product that has been scanned */
+    #####:   83:  while (iProduct < scannedProducts)
+branch  0 never executed
+branch  1 never executed
+        -:   84:  {
+    #####:   85:    currentProduct = ShoppingBasket[iProduct];
+    #####:   86:    if ( currentProduct != NULL_POINTER )
+branch  0 never executed
+branch  1 never executed
+        -:   87:    {
+    #####:   88:      currentCountedProduct = Productdatabase_getCountedProduct(currentProduct);
+call    0 never executed
+    #####:   89:      if (currentCountedProduct != NULL_POINTER)
+branch  0 never executed
+branch  1 never executed
+        -:   90:      {
+    #####:   91:        (currentCountedProduct->count)++;
+        -:   92:      }
+        -:   93:    }
+    #####:   94:    iProduct++;
+        -:   95:  }
+    #####:   96:}
+        -:   97:
+        -:   98:/*
+        -:   99: * End the session, by clearing all counted products and scanned products
+        -:  100: */
+function endSession called 1 returned 100% blocks executed 100%
+        1:  101:static void endSession(void)
+        -:  102:{
+        1:  103:  scannedProducts = 0U;
+        1:  104:  ShoppingBasket[scannedProducts] = NULL_POINTER;
+        1:  105:  Userinterface_show(" ");
+call    0 returned 1
+        1:  106:}
+        -:  107:
+        -:  108:/*
+        -:  109: * Generate a ticket showing total cost etc
+        -:  110: */
+function generateTicket called 0 returned 0% blocks executed 0%
+    #####:  111:static void generateTicket(void)
+        -:  112:{
+        -:  113:  LDRA_char_t msgString[MAX_STRING];
+    #####:  114:  LDRA_uint32_t sum_total = 0U;
+        -:  115:  LDRA_char_t theSpecialoffer;
+        -:  116:  LDRA_uint32_t thePrice;
+        -:  117:  LDRA_uint32_t theCount;
+        -:  118:  LDRA_uint32_t theUnitPrice;
+    #####:  119:  LDRA_uint32_t iter = 0U;
+        -:  120:  struct CountedProduct* aCountedProduct;
+        -:  121:
+    #####:  122:  countProducts();
+call    0 never executed
+    #####:  123:  Userinterface_scan("");
+call    0 never executed
+    #####:  124:  Userinterface_scan("=======================================");
+call    0 never executed
+    #####:  125:  Userinterface_scan("====   LDRA MISRA C  Supermarket   ====");
+call    0 never executed
+    #####:  126:  Userinterface_scan("=======================================");
+call    0 never executed
+        -:  127:
+        -:  128:  /* Iterate through and print out each CountedProduct if the count +ve */
+        -:  129:
+    #####:  130:  while (iter < MAX_PRODUCTS)
+branch  0 never executed
+branch  1 never executed
+        -:  131:  {
+    #####:  132:    aCountedProduct = Productdatabase_getSpecificCountedProduct(iter);
+call    0 never executed
+    #####:  133:    if (aCountedProduct != NULL_POINTER)
+branch  0 never executed
+branch  1 never executed
+        -:  134:    {
+    #####:  135:      theCount = aCountedProduct->count;
+    #####:  136:      if (theCount > 0U)
+branch  0 never executed
+branch  1 never executed
+        -:  137:      {
+    #####:  138:        if (aCountedProduct->itsProduct->specialOffer == NO_OFFER)
+branch  0 never executed
+branch  1 never executed
+        -:  139:        {
+    #####:  140:          theSpecialoffer = ' ';
+        -:  141:        }
+        -:  142:        else
+        -:  143:        {
+    #####:  144:          theSpecialoffer = '*';
+        -:  145:        }
+    #####:  146:        thePrice = Specialoffer_getPrice(aCountedProduct->count,
+call    0 never executed
+    #####:  147:            aCountedProduct->itsProduct->unitPrice,
+    #####:  148:            aCountedProduct->itsProduct->specialOffer,
+    #####:  149:			aCountedProduct->itsProduct->name);
+    #####:  150:        sum_total += thePrice;
+        -:  151:
+    #####:  152:        theUnitPrice = aCountedProduct->itsProduct->unitPrice;
+    #####:  153:        (void) sprintf(msgString, "%12s %2d at %6.2f%c  %6.2f",
+    #####:  154:            aCountedProduct->itsProduct->name, aCountedProduct->count,
+    #####:  155:            (LDRA_float32_t) theUnitPrice / 100.0F, theSpecialoffer,
+    #####:  156:            (LDRA_float32_t) thePrice / 100.0F);
+    #####:  157:        Userinterface_scan(&msgString[0]);
+call    0 never executed
+        -:  158:      }
+        -:  159:    }
+    #####:  160:    iter++;
+        -:  161:  }
+    #####:  162:  (void) sprintf(msgString, "                    total = %6.2f",
+    #####:  163:      (LDRA_float32_t) sum_total / 100.0F);
+    #####:  164:  Userinterface_scan(&msgString[0]);
+call    0 never executed
+    #####:  165:  Userinterface_scan("=======================================");
+call    0 never executed
+    #####:  166:}
+        -:  167:
+        -:  168:/*
+        -:  169: * Identify from the barcode, which product it is
+        -:  170: * If the product doesn't exist, then return null.
+        -:  171: */
+function identifyProduct called 64 returned 100% blocks executed 100%
+       64:  172:static void identifyProduct(const LDRA_uint32_t aBarcode)
+        -:  173:{
+        -:  174:  const struct Product * scannedProduct;
+       64:  175:  scannedProduct = Productdatabase_getProduct(aBarcode);
+call    0 returned 64
+        -:  176:
+       64:  177:  if (NULL_POINTER == scannedProduct)
+branch  0 taken 24 (fallthrough)
+branch  1 taken 40
+        -:  178:  {
+       24:  179:    Userinterface_show("Unknown barcode");
+call    0 returned 24
+        -:  180:  }
+        -:  181:  else
+        -:  182:  {
+       40:  183:    addProduct(scannedProduct);
+call    0 returned 40
+        -:  184:  }
+       64:  185:}
+        -:  186:
+        -:  187:
+        -:  188:/*
+        -:  189: * Remove the last product scannned
+        -:  190: */
+function removeLastProduct called 9 returned 100% blocks executed 100%
+        9:  191:static void removeLastProduct(void)
+        -:  192:{
+        -:  193:  LDRA_char_t lpmessage[MAX_STRING];
+        -:  194:  const struct Product* lastProduct;
+        -:  195:
+        9:  196:  if (scannedProducts > 0U)
+branch  0 taken 9 (fallthrough)
+branch  1 taken 0
+        -:  197:  {
+        9:  198:    scannedProducts--;
+        9:  199:    lastProduct = ShoppingBasket[scannedProducts];
+        9:  200:    if (lastProduct != NULL_POINTER)
+branch  0 taken 9 (fallthrough)
+branch  1 taken 0
+        -:  201:    {
+        9:  202:      (void) sprintf(lpmessage, "Removing %s", lastProduct->name);
+        9:  203:      Userinterface_show(&lpmessage[0]);
+call    0 returned 9
+        -:  204:    }
+        -:  205:  }
+        9:  206:}
+        -:  207:
+        -:  208:/*
+        -:  209: * Start a session,
+        -:  210: */
+function startSession called 4 returned 100% blocks executed 100%
+        4:  211:static void startSession(void)
+        -:  212:{
+        -:  213:  /* Empty the shopping basket */
+        4:  214:  scannedProducts = 0U;
+       48:  215:  while (scannedProducts < MAX_PRODUCTS_IN_BASKET)
+branch  0 taken 40
+branch  1 taken 4 (fallthrough)
+        -:  216:  {
+       40:  217:    ShoppingBasket[scannedProducts] = NULL_POINTER;
+       40:  218:    scannedProducts++;
+        -:  219:  }
+        4:  220:  scannedProducts = 0U;
+        4:  221:  Userinterface_show("Ready");
+call    0 returned 4
+        4:  222:}
+        -:  223:
+        -:  224:/* Public functions */
+        -:  225:
+        -:  226:/*
+        -:  227: * A barcode has been read
+        -:  228: */
+function Cashregister_barcode called 58 returned 100% blocks executed 100%
+       58:  229:void Cashregister_barcode(const LDRA_uint32_t aCode)
+        -:  230:{
+       58:  231:  if (state == state_Active)
+branch  0 taken 58 (fallthrough)
+branch  1 taken 0
+        -:  232:  {
+       58:  233:    identifyProduct(aCode);
+call    0 returned 58
+        -:  234:  }
+       58:  235:}
+        -:  236:
+        -:  237:/*
+        -:  238: * The cancel key has been pressed
+        -:  239: */
+function Cashregister_cancel called 10 returned 100% blocks executed 100%
+       10:  240:void Cashregister_cancel(void)
+        -:  241:{
+       10:  242:  if (state == state_Active)
+branch  0 taken 10 (fallthrough)
+branch  1 taken 0
+        -:  243:  {
+       10:  244:    if (scannedProducts == 0U)
+branch  0 taken 1 (fallthrough)
+branch  1 taken 9
+        -:  245:    {
+        1:  246:      endSession();
+call    0 returned 1
+        1:  247:      state = state_Idle;
+        -:  248:    }
+        -:  249:    else
+        -:  250:    {
+        9:  251:      removeLastProduct();
+call    0 returned 9
+        -:  252:    }
+        -:  253:  }
+       10:  254:}
+        -:  255:
+        -:  256:/*
+        -:  257: * The enter code key has been pressed
+        -:  258: */
+function Cashregister_code called 6 returned 100% blocks executed 100%
+        6:  259:void Cashregister_code(void)
+        -:  260:{
+        6:  261:  if (state == state_Active)
+branch  0 taken 6 (fallthrough)
+branch  1 taken 0
+        -:  262:  {
+        6:  263:    identifyProduct(theBarcode);
+call    0 returned 6
+        6:  264:    theBarcode = 0U;
+        -:  265:  }
+        6:  266:}
+        -:  267:
+        -:  268:/*
+        -:  269: * The end session key has been pressed
+        -:  270: */
+function Cashregister_end called 5 returned 100% blocks executed 40%
+        5:  271:void Cashregister_end(void)
+        -:  272:{
+        5:  273:  if (state == state_Idle)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 5
+        -:  274:  {
+    #####:  275:    generateTicket();
+call    0 never executed
+    #####:  276:    endSession();
+call    0 never executed
+    #####:  277:    state = state_Idle;
+        -:  278:  }
+        5:  279:}
+        -:  280:
+        -:  281:/*
+        -:  282: * A key between 0 and 9 has been pressed
+        -:  283: */
+function Cashregister_key called 20 returned 100% blocks executed 100%
+       20:  284:void Cashregister_key(const LDRA_uint32_t aKey)
+        -:  285:{
+       20:  286:  if (state == state_Active)
+branch  0 taken 20 (fallthrough)
+branch  1 taken 0
+        -:  287:  {
+       20:  288:    theBarcode = (theBarcode * 10U) + aKey;
+        -:  289:  }
+       20:  290:}
+        -:  291:
+        -:  292:/*
+        -:  293: * The start session key has been pressed
+        -:  294: */
+function Cashregister_start called 5 returned 100% blocks executed 100%
+        5:  295:void Cashregister_start(void)
+        -:  296:{
+        5:  297:  if (state == state_Idle)
+branch  0 taken 4 (fallthrough)
+branch  1 taken 1
+        -:  298:  {
+        4:  299:    theBarcode = 0U;
+        4:  300:    startSession();
+call    0 returned 4
+        4:  301:    state = state_Active;
+        -:  302:  }
+        5:  303:}
+        -:  304:
