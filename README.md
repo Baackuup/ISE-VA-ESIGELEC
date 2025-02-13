@@ -1,105 +1,104 @@
 # ISE-VA-ESIGELEC
 
-Bienvenue dans le dépôt du département **ISE-VA-ESIGELEC** ! Ce projet regroupe plusieurs modules vus en cours : fusion de données, l'intelligence artificielle, la planification et le suivi de trajectoires, méthodes et outils pour la qualité logicielle.
+Welcome to the **ISE-VA-ESIGELEC** department repository! This repo combines several modules covered in class: data fusion, artificial intelligence, trajectory planning and tracking, and software quality methods and tools.
 
-## Table des Matières
+## Table of Contents
 
-- [Description du Projet](#description-du-projet)
-- [Prérequis](#prérequis)
+- [Project Description](#project-description)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Structure du Projet](#structure-du-projet)
-- [Utilisation](#utilisation)
-- [Contributeurs](#contributeurs)
-- [Licence](#licence)
+- [Project Structure](#project-structure)
+- [Usage](#usage)
+- [Contributors](#contributors)
+- [License](#license)
 
-## Description du Repo
+## Repository Description
 
-Ce repository est composé de plusieurs modules :
+This repository consists of several modules:
 
-- **Fusion de Données pour la Localisation** : Mise en place de méthodes avancées de fusion de données pour améliorer la précision et la fiabilité de la localisation du véhicule.
-- **Intelligence Artificielle pour le Véhicule Autonome** : Algorithmes de décision basés sur des réseaux neuronaux et l'apprentissage machine.
-- **Méthodes et Outils pour la Qualité Logicielle** : Tests unitaires, outils de vérification, et bonnes pratiques pour assurer la robustesse du logiciel.
-- **Planification & Suivi de Trajectoire** : Implémentation d'algorithmes pour planifier et suivre des trajectoires optimales.
+- **Data Fusion for Localization**: Implementation of advanced data fusion methods to improve the accuracy and reliability of vehicle localization.
+- **Artificial Intelligence for Autonomous Vehicles**: Decision-making algorithms based on neural networks and machine learning.
+- **Software Quality Methods and Tools**: Unit testing, verification tools, and best practices to ensure software robustness.
+- **Trajectory Planning & Tracking**: Implementation of algorithms to plan and follow optimal trajectories.
 
-## Prérequis
+## Prerequisites
 
-Avant de commencer, assurez-vous d'avoir les outils et environnements suivants installés :
+Before starting, make sure you have the following tools and environments installed:
 
 - **Python** (>= 3.8)
 - **ROS1**
-- **Bibliothèques Python** :
+- **Python Libraries**:
   - `numpy`
   - `pandas`
   - `matplotlib`
   - `scikit-learn`
-- **CMake** et un compilateur compatible (GCC ou Clang)
-- Jupyter Notebook (si vous souhaitez exécuter les notebooks inclus)
+- **CMake** and a compatible compiler (GCC or Clang)
+- Jupyter Notebook (if you wish to run the included notebooks)
 
 ## Installation
 
-1. Clonez ce dépôt :
+1. Clone this repository:
    ```bash
    git clone https://github.com/Baackuup/ISE-VA-ESIGELEC.git
    cd ISE-VA-ESIGELEC
    ```
-2. Installez les dépendances Python :
+2. Install Python dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-3. Configurez les environnements ROS et CMake selon les modules que vous souhaitez utiliser.
+3. Set up ROS and CMake environments depending on the modules you wish to use.
 
-## Structure du Projet
+## Project Structure
 
-Le dépôt est organisé comme suit :
+The repository is organized as follows:
 
 ```plaintext
 ISE-VA-ESIGELEC/
-|— Fusion de Données pour la Localisation/
-|— Intelligence Artificielle pour le Véhicule Autonome/
-|— Méthodes et Outils pour la Qualité Logicielle/
-|— Planification & Suivi de Trajectoire/
+|— Data Fusion for Localization/
+|— Artificial Intelligence for Autonomous Vehicles/
+|— Software Quality Methods and Tools/
+|— Trajectory Planning & Tracking/
     |— catkin_ws/
 |— README.md
 |— requirements.txt
 ```
 
-- Chaque dossier contient des fichiers liés à un module particulier.
-- `requirements.txt` inclut les dépendances Python nécessaires.
+- Each folder contains files related to a specific module.
+- `requirements.txt` includes the necessary Python dependencies.
 
-## Utilisation
+## Usage
 
-### Exemple de Lancement d'un Module
+### Example of Running a Module
 
-1. **Fusion de Données pour la Localisation** :
-   - Naviguez dans le dossier correspondant :
+1. **Data Fusion for Localization**:
+   - Navigate to the corresponding folder:
      ```bash
-     cd "Fusion de Données pour la Localisation"
+     cd "Data Fusion for Localization"
      ```
-   - Lancez un notebook Jupyter :
+   - Launch a Jupyter notebook:
      ```bash
      jupyter notebook
      ```
-   - Exécutez les cellules pour voir les résultats.
+   - Run the cells to view the results.
 
-2. **Planification & Suivi de Trajectoire** :
-   - Configurez votre environnement ROS2 :
+2. **Trajectory Planning & Tracking**:
+   - Set up your ROS2 environment:
      ```bash
      source /opt/ros/foxy/setup.bash
      ```
-   - Lancez les noeuds ROS :
+   - Launch ROS nodes:
      ```bash
      ros launch trajectoire_planner planner_launch.py
      ```
 
-## Contributeurs
+## Contributors
 
 - [Paul BLIGNY](https://github.com/Baackuup)
 
-## Licence
+## License
 
-Ce projet est sous licence [MIT](LICENSE). Vous êtes libre de l'utiliser, le modifier et le distribuer, sous réserve de conserver les droits d'auteur et la licence.
+This project is licensed under the [MIT](LICENSE). You are free to use, modify, and distribute it, provided you retain the copyright and license.
 
 ---
 
-Contact : blignypaul@gmail.com
-
+Contact: blignypaul@gmail.com
