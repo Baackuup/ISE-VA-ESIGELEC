@@ -4,11 +4,10 @@ Welcome to the **ISE-VA-ESIGELEC** department repository! This repo combines sev
 
 ## Table of Contents
 
-- [Project Description](#project-description)
+- [Repository Description](#repository-description)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Project Structure](#project-structure)
-- [Usage](#usage)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -16,10 +15,14 @@ Welcome to the **ISE-VA-ESIGELEC** department repository! This repo combines sev
 
 This repository consists of several modules:
 
-- **Data Fusion for Localization**: Implementation of advanced data fusion methods to improve the accuracy and reliability of vehicle localization.
-- **Artificial Intelligence for Autonomous Vehicles**: Decision-making algorithms based on neural networks and machine learning.
-- **Software Quality Methods and Tools**: Unit testing, verification tools, and best practices to ensure software robustness.
-- **Trajectory Planning & Tracking**: Implementation of algorithms to plan and follow optimal trajectories.
+1. **Data Fusion for Localization**: Implementation of advanced data fusion methods to improve the accuracy and reliability of vehicle localization (e.g., Particle Filter).
+2. **Artificial Intelligence for Autonomous Vehicles**: Decision-making algorithms based on neural networks and machine learning.
+3. **Software Quality Methods and Tools**: Unit testing, verification tools, and best practices to ensure software robustness.
+4. **Trajectory Planning & Tracking**: Implementation of algorithms to plan and follow optimal trajectories on ROS1 Neotic.
+5. **Parallel Programming**: Exploration of parallel programming techniques to enhance application performance.
+6. **ADAS Prototyping with RT-Maps**: Usage of RT-Maps to visualize a LIDAR stream and identify car and pedestrian targets.
+7. **Mobile Robotics and Perception**: Implementation of algorithms for mobile robot navigation and environmental perception.
+8. **Augmented Reality**: Development of augmented reality applications to enhance user interaction and visualization.
 
 ## Prerequisites
 
@@ -54,19 +57,21 @@ The repository is organized as follows:
 
 ```plaintext
 ISE-VA-ESIGELEC/
-|— Data Fusion for Localization/
-|— Artificial Intelligence for Autonomous Vehicles/
-|— Software Quality Methods and Tools/
-|— Trajectory Planning & Tracking/
-    |— catkin_ws/
-|— README.md
-|— requirements.txt
+|-- Fusion de Données pour la Localisation/
+|-- Intelligence Artificielle pour le Véhicule Autonome/
+|-- Méthodes et Outils pour la Qualité Logicielle/
+|-- Planification & Suivi de Trajectoire/
+|-- Programmation Parallèle/
+|-- Prototypage ADAS avec RT-Maps/
+|-- Robotique Mobile & Perception/
+|-- Réalité Augmentée/
+|-- README.md
+|-- SECURITY.md
+|-- requirements.txt
 ```
 
-- Each folder contains files related to a specific module.
+- Each folder contains folders and files related to a specific module.
 - `requirements.txt` includes the necessary Python dependencies.
-
-## Usage
 
 ### Example of Running a Module
 
