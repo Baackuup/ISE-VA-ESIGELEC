@@ -87,13 +87,13 @@ ISE-VA-ESIGELEC/
    - Run the cells to view the results.
 
 2. **Trajectory Planning & Tracking**:
-   - Set up your ROS2 environment:
+   - Set up your ROS environment:
      ```bash
-     source /opt/ros/foxy/setup.bash
+     source /opt/ros/noetic/setup.bash
      ```
    - Launch ROS nodes:
      ```bash
-     ros launch trajectoire_planner planner_launch.py
+     roslaunch [current_package] [application].launch
      ```
 
 ## Contributors
