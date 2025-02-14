@@ -16,7 +16,7 @@ This guide provides step-by-step instructions for installing Unity and setting i
 ## Installation Steps
 
 ### 1. Download Unity Hub
-- Visit the official Unity website and download Unity Hub:
+- Visit the official Unity website and download **Unity Hub 2022.3** :
   [Unity Hub Download](https://unity.com/download)
 
 ### 2. Install Unity Editor
