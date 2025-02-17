@@ -1,0 +1,189 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# TP Chroma key BLIGNY PIVON"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Introduction "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* L'objectif de ce tp est d'assembler deux images entre-elles."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "***Importation***"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import cv2\n",
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "***Chargement des images***"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "meteo = cv2.imread(\"X:/Semestre_8/Vision par ordinateur/TP_cours4/meteo.jpg\")\n",
+    "presentatrice = cv2.imread(\"X:/Semestre_8/Vision par ordinateur/TP_cours4/presentatrice.jpg\")\n",
+    "#plt.subplot(121),plt.imshow(cv2.cvtcolor(meteo, cv2.COLOR_BGR2RGB))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "***Code***"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Conversion de l'image de fond/presentatrice en HSV\n",
+    "hsv = cv2.cvtColor(presentatrice, cv2.COLOR_BGR2HSV)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Définition de la plage de bleu pour le fond à supprimer \n",
+    "bleu_min = np.array([90, 50, 50])\n",
+    "bleu_max = np.array([130, 255, 255])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Création et inversion du masque :\n",
+    "masque = cv2.inRange(hsv, bleu_min, bleu_max)\n",
+    "masque_inv = cv2.bitwise_not(masque)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Extraction de la zone d'intérêt du fond et du sujet :\n",
+    "arriere_plan = cv2.bitwise_and(meteo, meteo, mask=masque)\n",
+    "avant_plan = cv2.bitwise_and(presentatrice, presentatrice, mask=masque_inv)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Fusion des deux images\n",
+    "Image_finale = cv2.add(arriere_plan, avant_plan)\n",
+    "image_finale_grande=cv2.resize(Image_finale, None, fx=3, fy=3)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "***Affichage des images***"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "cv2.imshow(\"masque\", masque)\n",
+    "cv2.imshow(\"masque_inv\", masque_inv)\n",
+    "cv2.imshow(\"arriere_plan\", arriere_plan)\n",
+    "cv2.imshow(\"avant_plan\", avant_plan)\n",
+    "cv2.imshow(\"image_finale_grande\", image_finale_grande)\n",
+    "cv2.waitKey(0)\n",
+    "cv2.destroyAllWindows()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Conclusion"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* Nous avons mis en pratique les connaissances acquises lors des séances précedentes.\n",
+    "* Lors de ce tp, nous avons converti en hsv une image, défini les limitations de bleus, créé un masque puis son inverse, et additionné deux images entre-elles."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
