@@ -23,6 +23,7 @@ This repository consists of several modules:
 6. **ADAS Prototyping with RT-Maps**: Usage of RT-Maps to visualize a LIDAR stream and identify car and pedestrian targets.
 7. **Mobile Robotics and Perception**: Implementation of algorithms for mobile robot navigation and environmental perception.
 8. **Augmented Reality**: Development of augmented reality applications to enhance user interaction and visualization.
+9. **Computer Vision**: 
 
 ## Prerequisites
 
