@@ -65,6 +65,7 @@ ISE-VA-ESIGELEC/
 |-- Prototypage ADAS avec RT-Maps/
 |-- Robotique Mobile & Perception/
 |-- Réalité Augmentée/
+|-- Vision par Ordinateur
 |-- README.md
 |-- SECURITY.md
 |-- requirements.txt
