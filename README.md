@@ -1,6 +1,6 @@
 # ISE-VA-ESIGELEC
 
-Welcome to the **ISE-VA-ESIGELEC** department repository! This repo combines several modules covered in class: data fusion, artificial intelligence, trajectory planning and tracking, and software quality methods and tools.
+Welcome to the **ISE-VA-ESIGELEC** department repository! This repo combines several modules covered during my engineering studies.
 
 ## Table of Contents
 
