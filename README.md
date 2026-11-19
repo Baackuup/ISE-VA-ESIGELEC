@@ -1,110 +1,50 @@
 # ISE-VA-ESIGELEC
 
-Welcome to the **ISE-VA-ESIGELEC** department repository! This repo combines several modules covered during my engineering studies.
+Coursework from my engineering degree at **ESIGELEC** (Rouen), major **Embedded Systems – Autonomous Vehicles (ISE-VA)**, 2023–2025.
+Each folder is one module: lab reports, code and notebooks, mostly done in pairs.
 
-## Table of Contents
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![C/C++](https://img.shields.io/badge/C%2FC%2B%2B-00599C?logo=cplusplus&logoColor=white)
+![MATLAB](https://img.shields.io/badge/MATLAB-0076A8)
+![ROS](https://img.shields.io/badge/ROS1%20Noetic-22314E?logo=ros&logoColor=white)
+![CUDA](https://img.shields.io/badge/CUDA-76B900?logo=nvidia&logoColor=white)
+![Unity](https://img.shields.io/badge/Unity-000000?logo=unity&logoColor=white)
 
-- [Repository Description](#repository-description)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Project Structure](#project-structure)
-- [Contributors](#contributors)
-- [License](#license)
+## Modules
 
-## Repository Description
+| Module | What I did | Tools |
+|---|---|---|
+| [Data Fusion for Localization](Fusion%20de%20Donn%C3%A9es%20pour%20la%20Localisation/) | Vehicle localization by sensor fusion (particle filter) | Python, Jupyter |
+| [AI for Autonomous Vehicles](Intelligence%20Artificielle%20pour%20le%20V%C3%A9hicule%20Autonome/) | Machine-learning and neural-network labs for perception and decision | Python, scikit-learn, PyTorch, TensorFlow/Keras |
+| [Software Quality Methods & Tools](M%C3%A9thodes%20et%20Outils%20pour%20la%20Qualit%C3%A9%20Logicielle/) | Code review, unit testing and MISRA-C static analysis on embedded C projects (cash register, robot) | C, CppCheck (MISRA) |
+| [Trajectory Planning & Tracking](Planification%20%26%20Suivi%20de%20Trajectoire/) | TurtleBot3 simulation: mapping (gmapping), localization (AMCL), navigation in custom worlds | ROS1 Noetic, Gazebo |
+| [Parallel Programming](Programmation%20Parall%C3%A8le/) | Benchmarks, then Conway's Game of Life parallelized with threads (CPU) and CUDA (GPU) | C/C++, threads, CUDA |
+| [ADAS Prototyping with RT-Maps](Prototypage%20ADAS%20avec%20RT-Maps/) | LIDAR stream processing to detect cars and pedestrians | RT-Maps |
+| [Mobile Robotics & Perception](Robotique%20Mobile%20%26%20Perception/) | Navigation and person-following with a DJI RoboMaster (camera-based detection) | Python, RoboMaster SDK |
+| [Augmented Reality](R%C3%A9alit%C3%A9%20Augment%C3%A9e/) | Marker-based AR game ("chamboule-tout") | Unity, C# |
+| [Computer Vision](Vision%20par%20Ordinateur/) | Color spaces, image enhancement, chroma key, template matching | MATLAB, Python, OpenCV |
 
-This repository consists of several modules:
+## Getting started
 
-1. **Data Fusion for Localization**: Implementation of advanced data fusion methods to improve the accuracy and reliability of vehicle localization (e.g., Particle Filter).
-2. **Artificial Intelligence for Autonomous Vehicles**: Decision-making algorithms based on neural networks and machine learning.
-3. **Software Quality Methods and Tools**: Unit testing, verification tools, and best practices to ensure software robustness.
-4. **Trajectory Planning & Tracking**: Implementation of algorithms to plan and follow optimal trajectories on ROS1 Neotic.
-5. **Parallel Programming**: Exploration of parallel programming techniques to enhance application performance.
-6. **ADAS Prototyping with RT-Maps**: Usage of RT-Maps to visualize a LIDAR stream and identify car and pedestrian targets.
-7. **Mobile Robotics and Perception**: Implementation of algorithms for mobile robot navigation and environmental perception.
-8. **Augmented Reality**: Development of augmented reality applications to enhance user interaction and visualization.
-9. **Computer Vision**: 
-
-## Prerequisites
-
-Before starting, make sure you have the following tools and environments installed:
-
-- **Python** (>= 3.8)
-- **ROS1**
-- **Python Libraries**:
-  - `numpy`
-  - `pandas`
-  - `matplotlib`
-  - `scikit-learn`
-- **CMake** and a compatible compiler (GCC or Clang)
-- Jupyter Notebook (if you wish to run the included notebooks)
-
-## Installation
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/Baackuup/ISE-VA-ESIGELEC.git
-   cd ISE-VA-ESIGELEC
-   ```
-2. Install Python dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Set up ROS and CMake environments depending on the modules you wish to use.
-
-## Project Structure
-
-The repository is organized as follows:
-
-```plaintext
-ISE-VA-ESIGELEC/
-|-- Fusion de Données pour la Localisation/
-|-- Intelligence Artificielle pour le Véhicule Autonome/
-|-- Méthodes et Outils pour la Qualité Logicielle/
-|-- Planification & Suivi de Trajectoire/
-|-- Programmation Parallèle/
-|-- Prototypage ADAS avec RT-Maps/
-|-- Robotique Mobile & Perception/
-|-- Réalité Augmentée/
-|-- Vision par Ordinateur
-|-- README.md
-|-- SECURITY.md
-|-- requirements.txt
+```bash
+git clone https://github.com/Baackuup/ISE-VA-ESIGELEC.git
+cd ISE-VA-ESIGELEC
+pip install -r requirements.txt   # for the Python notebooks
+jupyter notebook
 ```
 
-- Each folder contains folders and files related to a specific module.
-- `requirements.txt` includes the necessary Python dependencies.
+Module-specific setup:
+- **ROS** (Trajectory Planning): ROS1 Noetic on Ubuntu 20.04, then `source /opt/ros/noetic/setup.bash`, build with `catkin_make` in `catkin_ws/` and run one of the `.launch` files. See the module's README.
+- **RT-Maps**: requires a license (free for students), see the module's README.
+- **Unity**: see the module's README.
+- **MATLAB** scripts (Computer Vision) run as-is with the Image Processing Toolbox.
 
-### Example of Running a Module
+## Authors
 
-1. **Data Fusion for Localization**:
-   - Navigate to the corresponding folder:
-     ```bash
-     cd "Data Fusion for Localization"
-     ```
-   - Launch a Jupyter notebook:
-     ```bash
-     jupyter notebook
-     ```
-   - Run the cells to view the results.
+- [Paul Bligny](https://github.com/Baackuup)
+- Nathan Pivon, lab partner on most modules
 
-2. **Trajectory Planning & Tracking**:
-   - Set up your ROS environment:
-     ```bash
-     source /opt/ros/noetic/setup.bash
-     ```
-   - Launch ROS nodes:
-     ```bash
-     roslaunch [current_package] [application].launch
-     ```
-
-## Contributors
-
-- [Paul BLIGNY](https://github.com/Baackuup)
-
-## License
-
-This project is licensed under the [MIT](LICENSE). You are free to use, modify, and distribute it, provided you retain the copyright and license.
+Lab subjects and some starter code were provided by ESIGELEC teaching staff.
 
 ---
 

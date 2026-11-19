@@ -1,0 +1,50 @@
+# OS
+.DS_Store
+Thumbs.db
+_Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.vs/
+*.suo
+*.user
+UpgradeLog*.htm
+
+# Python / Jupyter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# ROS (catkin)
+**/catkin_ws/build/
+**/catkin_ws/devel/
+**/catkin_ws/install/
+**/catkin_ws/logs/
+
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+*.csproj
+*.sln
+
+# C / C++
+*.o
+*.obj
+*.exe
+*.out
+
+# MATLAB
+*.asv
+*.mex*
+
+# Secrets
+.env
+*.key
